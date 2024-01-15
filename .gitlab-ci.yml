@@ -14,5 +14,5 @@ deploy-prod:
     - mvn package
     - export PORT=5000
     - fuser -k 5000/tcp || true
-    - sh target/bin/simplewebapp &
+    - nohup sh target/bin/simplewebapp > cicd_logfile.log 2>&1 &
     - echo "deploying"
