@@ -1,17 +1,18 @@
 build-job:
   stage: build
   script:
-    - "mvn compile"
+    - mvn compile
 
 test-job:
   stage: test
   script:
-    - "mvn test"
+    - mvn test
 
 deploy-prod:
   stage: deploy
   script:
-    - "mvn package"
+    - mvn package
     - export PORT=5000
+    - fuser -k 5000/tcp || true
     - sh target/bin/simplewebapp &
     - echo "deploying"
