@@ -1,4 +1,4 @@
-package ic.doc;
+¬package ic.doc;
 
 public class QueryProcessor {
 
