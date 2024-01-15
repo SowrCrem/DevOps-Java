@@ -15,4 +15,3 @@ deploy-prod:
     - export PORT=5000
     - sh target/bin/simplewebapp &
     - echo "deployed successfully"
-  environment: production
