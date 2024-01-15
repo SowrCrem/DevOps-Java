@@ -12,8 +12,8 @@ deploy-prod:
   stage: deploy
   script:
     - mvn package
-    - export PORT=5000
-    - fuser -k 5000/tcp || true
+    - export PORT=6000
+    - fuser -k 6000/tcp || true
     - nohup sh target/bin/simplewebapp > cicd_logfile.log 2>&1 &
     - echo "deploying"
   artifacts:
