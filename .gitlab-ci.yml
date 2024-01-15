@@ -11,6 +11,7 @@ test-job:
 deploy-prod:
   stage: deploy
   script:
+    - dpl --provider=heroku --app=<login>-simplewebapp --api-key=<heroku_api_key>
     - mvn package
     - export PORT=8080
     - fuser -k 8080/tcp || true
