@@ -12,7 +12,7 @@ deploy-prod:
   stage: deploy
   script:
     # TODO: Change to a Secret Variable
-    - dpl --provider=heroku --app=<login>-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
+    - dpl --provider=heroku --app=group52-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
     - mvn package
     - export PORT=8080
     - fuser -k 8080/tcp || true
