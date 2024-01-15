@@ -10,9 +10,9 @@ test-job:
 
 deploy-prod:
   stage: deploy
-  port: 5000
   script:
     - mvn package
     - export PORT=5000
     - sh target/bin/simplewebapp &
     - echo "deployed successfully"
+  environment: production
