@@ -27,6 +27,17 @@ public class QueryProcessor {
         "with a population of around 8.8 million. It stands on the River Thames in\n" +
         "south-east England at the head of a 50-mile (80 km) estuary down to the North\n" +
         "Sea and has been a major settlement for nearly two millennia.");
+        queryInfo.put("the strongest",
+        "Who is Aaron Thomas to you?,\n" +
+        "He's the strongest.\n" +
+        "Nah. I'd win.\n" +
+        "Stand proud. You are Strong.");
+        queryInfo.put("aaron thomas",
+        "He's the strongest.\n" +
+        "the honoured one.\n" +
+        "the strongest.");
+        
+    
     }
 
     public QueryProcessor () {
