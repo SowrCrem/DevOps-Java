@@ -1,5 +1,4 @@
 package ic.doc;
-import static java.util.Map.Entry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,22 +24,18 @@ public class QueryProcessor {
         "of London on 22 July 1908, with the City and Guilds College joining in 1910.\n");
     }
 
+    public QueryProcessor () {
+        populateInfo();
+    }
+
     public String process(String query) {
         StringBuilder results = new StringBuilder();
-
-        Boolean found = false;
 
         for (String searchableQuery : queryInfo.keySet()) {
             if (query.toLowerCase().contains(searchableQuery)) {
                 results.append(queryInfo.get(searchableQuery));
                 results.append(System.lineSeparator());
-                found = true;
             }
-        }
-
-        if (!found) {
-            results.append("Sorry, we do not have Information for the query you've entered");
-            results.append(System.lineSeparator());
         }
 
         return results.toString();

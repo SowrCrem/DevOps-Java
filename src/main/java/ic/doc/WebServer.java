@@ -30,9 +30,7 @@ public class WebServer {
             if (query == null) {
                 new IndexPage().writeTo(resp);
             } else {
-                QueryProcessor qP = new QueryProcessor();
-                qP.populateInfo();
-                new HTMLResultPage(query, qP.process(query)).writeTo(resp);
+                new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
             }
         }
     }
