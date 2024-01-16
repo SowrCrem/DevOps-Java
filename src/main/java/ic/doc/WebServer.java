@@ -30,7 +30,7 @@ public class WebServer {
             String downloadFormat = req.getParameter("format");
             if (query == null) {
                 if (downloadFormat == null) {
-                    new IndexPage().writeTo(response);
+                    new IndexPage().writeTo(resp);
                 } else if (downloadFormat.equals("markdown")) {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("london")).writeTo(resp);
