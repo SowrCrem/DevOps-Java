@@ -32,9 +32,11 @@ public class WebServer {
                 if (downloadFormat == "markdown") {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("london")).writeTo(resp);
+                    return;
                 } else if (downloadFormat == "html") {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("imperial")).writeTo(resp);
+                    return;
                 }
                 new IndexPage().writeTo(resp);
             } else {
