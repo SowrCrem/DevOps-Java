@@ -37,7 +37,7 @@ public class QueryProcessor {
         "the honoured one.\n" +
         "the strongest.");
         queryInfo.put("Chelsea",
-        "the objectively best football club in the world.")
+        "the objectively best football club in the world.");
         
     
     }
