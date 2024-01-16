@@ -29,11 +29,11 @@ public class WebServer {
             String query = req.getParameter("q");
             String downloadFormat = req.getParameter("format");
             if (query == null) {
-                if (downloadFormat == "markdown") {
+                if (downloadFormat.equals("markdown")) {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("london")).writeTo(resp);
                     return;
-                } else if (downloadFormat == "html") {
+                } else if (downloadFormat.equals("html")) {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("imperial")).writeTo(resp);
                     return;

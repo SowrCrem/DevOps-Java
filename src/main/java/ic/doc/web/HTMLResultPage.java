@@ -37,12 +37,12 @@ public class HTMLResultPage implements Page {
                         "<p>Select Download Format:</p>" +
                         "<input type=\"radio\" id=\"markdown\" name=\"format\" value=\"markdown\">" +
                         "<label for=\"markdown\">Markdown</label><br>" + 
-                        "<input type=\"radio\" id=\"html\" name=\"format\" value=\"html\">" +
+                        "<input type=\"radio\" id=\"HTML\" name=\"format\" value=\"html\">" +
                         "<label for=\"html\">html</label><br>" +
                         "<br>" +
-                        "<input type=\"submit\" value=\"Submit\">" +
+                        "<input type=\"submit\">" +
                         "</form>");
-                        
+
         writer.println("<p><a href=\"/\">Back to Search Page</a></p>");
 
         // Footer
