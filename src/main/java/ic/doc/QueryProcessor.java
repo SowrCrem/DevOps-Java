@@ -22,6 +22,11 @@ public class QueryProcessor {
         "and for the promotion of research in support of industry\n" +
         "throughout the British Empire. The college joined the University\n" +
         "of London on 22 July 1908, with the City and Guilds College joining in 1910.\n");
+        queryInfo.put("london",
+        "London is the capital and largest city of England and the United Kingdom,\n" +
+        "with a population of around 8.8 million. It stands on the River Thames in\n" +
+        "south-east England at the head of a 50-mile (80 km) estuary down to the North\n" +
+        "Sea and has been a major settlement for nearly two millennia.");
     }
 
     public QueryProcessor () {
