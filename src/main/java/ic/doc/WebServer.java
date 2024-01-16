@@ -29,6 +29,9 @@ public class WebServer {
             String query = req.getParameter("q");
             String downloadFormat = req.getParameter("format");
             if (query == null) {
+                if (downloadFormat == null) {
+                    new IndexPage().writeTo(response);
+                }
                 if (downloadFormat.equals("markdown")) {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("london")).writeTo(resp);
@@ -36,7 +39,6 @@ public class WebServer {
                     // TODO
                     new HTMLResultPage(query, new QueryProcessor().process("imperial")).writeTo(resp);
                 }
-                new IndexPage().writeTo(resp);
             } else {
                 new HTMLResultPage(query, new QueryProcessor().process(query)).writeTo(resp);
             }
