@@ -77,13 +77,9 @@ public class WebServer {
                     
                         // Use ProcessBuilder to execute the pandoc command
                         ProcessBuilder processBuilder = new ProcessBuilder(
-                            "docker", "run",
-                            "--rm",
-                            "--volume", "`pwd`:/data",
-                            "--user", "`id -u`:`id -g`",
-                            "pandoc/latex",
+                            "pandoc",
                             tempMarkdownFile.getAbsolutePath(),
-                            "-o", tempPdfFile.getAbsolutePath()
+                            "-s", "-o", tempPdfFile.getAbsolutePath()
                         );
 
                         processBuilder.redirectErrorStream(true);

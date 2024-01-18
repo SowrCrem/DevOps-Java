@@ -1,9 +1,9 @@
 # Use a base image with the required JDK version
 FROM openjdk:11-jdk
 
-# Install Maven and Pandoc
+# Install Maven and Pandoc and LaTeX
 RUN apt-get update && \
-    apt-get install -y maven pandoc
+    apt-get install -y maven pandoc texlive-full
 
 # Set the working directory in the container
 WORKDIR /app
