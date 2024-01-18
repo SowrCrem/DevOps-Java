@@ -22,3 +22,5 @@ deploy-prod:
   artifacts:
     paths:
       - cicd_logfile.log
+  
+  
