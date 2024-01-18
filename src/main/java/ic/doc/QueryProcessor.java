@@ -76,7 +76,7 @@ public class QueryProcessor {
         return results.toString();
     }
 
-    public String processMd(String query) {
+    public String processMarkdown(String query) {
         StringBuilder markdownResults = new StringBuilder();
 
         for (String searchableQuery : queryInfo.keySet()) {
