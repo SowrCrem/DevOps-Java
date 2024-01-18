@@ -15,8 +15,8 @@ deploy-prod:
     # TODO: Split into two deploy jobs, one for staging (VM) and one for production (Heroku)
     - dpl --provider=heroku --app=group52-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
     - mvn package
-    - export PORT=8080
-    - fuser -k 8080/tcp || true
+    - export PORT=5000
+    - fuser -k 5000/tcp || true
     - nohup sh target/bin/simplewebapp > cicd_logfile.log 2>&1 &
     - echo "deploying"
   artifacts:
