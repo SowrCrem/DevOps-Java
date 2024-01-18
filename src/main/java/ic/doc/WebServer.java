@@ -56,8 +56,9 @@ public class WebServer {
                     resp.setHeader("Content-Disposition", "attachment; filename=\"query-result.md\"");
                     Files.copy(tempfile.toPath(), resp.getOutputStream());
                     tempfile.deleteOnExit();
-                } else {
+                } else if (downloadFormat.equals("pdf")){
                     // TODO
+                } else {
                     new HTMLResultPage(query, processor.process(query)).writeTo(resp);
                 }
             }

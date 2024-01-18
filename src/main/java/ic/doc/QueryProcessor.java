@@ -38,8 +38,25 @@ public class QueryProcessor {
         "the strongest.");
         queryInfo.put("Chelsea",
         "the objectively best football club in the world.");
-        
-    
+        queryInfo.put("jeet",
+        "Jeet is a god.\n" +
+        "He is the strongest.\n" +
+        "He is the best.\n" +
+        "He is the most handsome.\n" +
+        "He is the most intelligent.\n" +
+        "He is the most humble.\n" +
+        "He is the most kind.\n" +
+        "He is the most generous.\n" +
+        "He is the most caring.\n" +
+        "He is the most loving.\n" +
+        "He is the most loyal.\n" +
+        "He is the most hardworking.\n" +
+        "He is the most dedicated.\n" +
+        "He is the most talented.\n" +
+        "He is the most athletic.\n" +
+        "He is the most creative.\n" +
+        "He is the most artistic.\n" +
+        "He is the most musical.\n");    
     }
 
     public QueryProcessor () {
