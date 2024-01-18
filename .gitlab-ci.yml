@@ -18,7 +18,7 @@ deploy-prod:
     - fuser -k 5000/tcp || true
     - nohup sh target/bin/simplewebapp > cicd_logfile.log 2>&1 &
     - docker build -t my_image .
-    - docker run -d -p 5000:5000 my_image
+    - docker run -e PORT=8080 -p 5000:8080 my_image
     - dpl --provider=heroku --app=group52-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
     - echo "deploying"
   artifacts:
