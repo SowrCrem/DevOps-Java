@@ -12,7 +12,7 @@ COPY pom.xml /app
 COPY src /app/src
 
 # Build the application
-RUN mvn package
+RUN mvn clean package
 
 # Copy the assembled application directory
 COPY target /app/target
