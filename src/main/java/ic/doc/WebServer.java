@@ -75,17 +75,17 @@ public class WebServer {
                         resp.setHeader("Content-Disposition", "attachment; filename=\"query-result.pdf\"");
                         IOUtils.copy(pandocInputStream, resp.getOutputStream());
 
-                        int exitCode;
-                        try {
-                            exitCode = pandocProcess.waitFor();
-                        } catch (InterruptedException e) {
-                            throw new IOException("Failed to wait for pandoc process completion.", e);
-                        }
+                        // int exitCode;
+                        // try {
+                        //     exitCode = pandocProcess.waitFor();
+                        // } catch (InterruptedException e) {
+                        //     throw new IOException("Failed to wait for pandoc process completion.", e);
+                        // }
 
-                        if (exitCode != 0) {
-                            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                            return;
-                        }
+                        // if (exitCode != 0) {
+                        //     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                        //     return;
+                        // }
                     }
                 }
             }
