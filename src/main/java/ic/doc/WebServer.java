@@ -68,6 +68,9 @@ public class WebServer {
                         File tempMarkdownFile = File.createTempFile("query-result", ".md");
                         File tempPdfFile = File.createTempFile("query-result", ".pdf");
                     
+                        System.out.println("Temporary Markdown File: " + tempMarkdownFile.getAbsolutePath());
+                        System.out.println("Temporary PDF File: " + tempPdfFile.getAbsolutePath());
+
                         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(tempMarkdownFile)))) {
                             out.println(markdownContent);
                         }

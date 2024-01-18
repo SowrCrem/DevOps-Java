@@ -2,7 +2,8 @@
 FROM openjdk:11-jdk
 
 # Install Maven and Pandoc
-RUN apt-get update && apt-get install -y maven pandoc
+RUN apt-get update && \
+    apt-get install -y maven pandoc
 
 # Set the working directory in the container
 WORKDIR /app
