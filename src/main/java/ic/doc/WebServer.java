@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -63,35 +65,54 @@ public class WebServer {
                         Files.copy(tempfile.toPath(), resp.getOutputStream());
                         tempfile.deleteOnExit();
                     } else {    // downloadFormat.equals("PDF")
-                    File tempMarkdownFile = File.createTempFile("query-result", ".md");
-                    File tempPdfFile = File.createTempFile("query-result", ".pdf");
-                
-                    try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(tempMarkdownFile)))) {
-                        out.println(markdownContent);
-                    }
-                
-                    // Use ProcessBuilder to execute the pandoc command
-                    ProcessBuilder processBuilder = new ProcessBuilder("pandoc", tempMarkdownFile.getAbsolutePath(), "-o", tempPdfFile.getAbsolutePath());
-                    Process process = processBuilder.start();
-
-                    try {
-                        int exitCode = process.waitFor();
+                        File tempMarkdownFile = File.createTempFile("query-result", ".md");
+                        File tempPdfFile = File.createTempFile("query-result", ".pdf");
                     
-                        if (exitCode == 0) {
-                            // Set response headers for PDF download
-                            resp.setContentType("application/pdf");
-                            resp.setHeader("Content-Disposition", "attachment; filename=\"query-result.pdf\"");
-                            Files.copy(tempPdfFile.toPath(), resp.getOutputStream());
-                        } else {
-                            resp.getWriter().println("Error converting Markdown to PDF");
+                        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(tempMarkdownFile)))) {
+                            out.println(markdownContent);
                         }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                
-                    // Cleanup temp files
-                    tempMarkdownFile.deleteOnExit();
-                    tempPdfFile.deleteOnExit();
+                    
+                        // Use ProcessBuilder to execute the pandoc command
+                        ProcessBuilder processBuilder = new ProcessBuilder("pandoc", tempMarkdownFile.getAbsolutePath(), "-o", tempPdfFile.getAbsolutePath());
+
+                        processBuilder.redirectErrorStream(true);
+
+                        Process process = processBuilder.start();
+
+                        try {
+                            int exitCode = process.waitFor();
+                        
+                            if (exitCode == 0) {
+                                // Set response headers for PDF download
+                                resp.setContentType("application/pdf");
+                                resp.setHeader("Content-Disposition", "attachment; filename=\"query-result.pdf\"");
+                                Files.copy(tempPdfFile.toPath(), resp.getOutputStream());
+                            } else {
+                                resp.getWriter().println("Error converting Markdown to PDF");
+                                
+                                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                                    String line;
+                                    while ((line = reader.readLine()) != null) {
+                                        // Log or print the output
+                                        System.out.println(line);
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                                
+                            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    // Log or print the output
+                                    System.out.println(line);
+                                }
+                            }
+                        }
+                    
+                        // Cleanup temp files
+                        tempMarkdownFile.deleteOnExit();
+                        tempPdfFile.deleteOnExit();
                     }
                 }
             }
