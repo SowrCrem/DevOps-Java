@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
@@ -65,11 +66,19 @@ public class WebServer {
                         ProcessBuilder pandocProcessBuilder = new ProcessBuilder("pandoc", "-s", "--from=markdown", "--to=pdf");
                         Process pandocProcess = pandocProcessBuilder.start();
 
-                        try (OutputStream pandocOutputStream = pandocProcess.getOutputStream()) {
-                            pandocOutputStream.write(markdownContent.getBytes(StandardCharsets.UTF_8));
+                        try (OutputStreamWriter writer = new OutputStreamWriter(pandocProcess.getOutputStream(), StandardCharsets.UTF_8)) {
+                            writer.write(markdownContent);
                         }
 
                         InputStream pandocInputStream = pandocProcess.getInputStream();
+
+                        InputStream pandocErrorStream = pandocProcess.getErrorStream();
+                        String errorOutput = new String(IOUtils.toByteArray(pandocErrorStream), StandardCharsets.UTF_8);
+                        if (!errorOutput.isEmpty()) {
+                            System.err.println("pandoc error output: " + errorOutput);
+                            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                            return;
+                        }
 
                         resp.setContentType("application/pdf");
                         resp.setHeader("Content-Disposition", "attachment; filename=\"query-result.pdf\"");
