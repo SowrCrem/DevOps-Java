@@ -26,7 +26,7 @@ public class IndexPage implements Page {
                         "<label for=\"markdown\">Markdown Download</label><br>" + 
                         "<input type=\"radio\" id=\"markdown\" name=\"format\" value=\"pdf\">" +
                         "<label for=\"markdown\">PDF Download</label><br>" + 
-                        "<input type=\"radio\" id=\"HTML\" name=\"format\" value=\"html\">" +
+                        "<input type=\"radio\" id=\"HTML\" name=\"format\" value=\"html\" checked>" +
                         "<label for=\"html\">HTML Display</label><br>" +
                         "<br><br><input type=\"submit\">" +
                         "</form>" +
