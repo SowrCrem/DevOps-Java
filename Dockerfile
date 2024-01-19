@@ -1,5 +1,5 @@
 # Use a base image with the required JDK version
-FROM maven:3.8.4-openjdk-11
+FROM maven:sapmachine AS build
 
 # Install Maven and Pandoc 
 RUN apt-get update && \
