@@ -1,7 +1,7 @@
-# Use a base image with the required JDK version
-FROM maven:3-jdk-11 AS build
+# Use a base image with Maven and Java 11
+FROM maven:3-jdk-11
 
-# Install Maven and Pandoc 
+# Install Pandoc and LaTeX
 RUN apt-get update && \
     apt-get install -y pandoc texlive-latex-extra
 
@@ -13,7 +13,7 @@ COPY pom.xml /app
 COPY src /app/src
 
 # Build the application
-RUN mvn clean package
+RUN mvn package
 
 # Copy the assembled application directory
 COPY target /app/target
