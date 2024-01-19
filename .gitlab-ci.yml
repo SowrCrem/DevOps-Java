@@ -10,13 +10,13 @@ build-job:
   stage: build
   script:
     - mvn compile
-  image: maven:latest
+  image: openjdk:11-jdk
 
 test-job:
   stage: test
   script:
     - mvn test
-  image: maven:latest
+  image: openjdk:11-jdk
 
 deploy-prod:
   stage: deploy
