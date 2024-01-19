@@ -1,65 +1,25 @@
 package ic.doc;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class QueryProcessor {
 
-    private Map<String, String> queryInfo = new HashMap<>();
+    private JSONObject queryInfo;
 
     public void populateInfo() {
-        queryInfo.put("shakespeare",
-        "William Shakespeare (26 April 1564 - 23 April 1616) was an\n" +
-        "English poet, playwright, and actor, widely regarded as the greatest\n" +
-        "writer in the English language and the world's pre-eminent dramatist. \n");
-        queryInfo.put("asimov",
-        "Isaac Asimov (2 January 1920 - 6 April 1992) was an\n" +
-        "American writer and professor of Biochemistry, famous for\n" +
-        "his works of hard science fiction and popular science. \n");
-        queryInfo.put("imperial",
-        "Imperial College London was founded in 1907 by the state for\n" +
-        "advanced university-level training in science and technology,\n" +
-        "and for the promotion of research in support of industry\n" +
-        "throughout the British Empire. The college joined the University\n" +
-        "of London on 22 July 1908, with the City and Guilds College joining in 1910.\n");
-        queryInfo.put("london",
-        "London is the capital and largest city of England and the United Kingdom,\n" +
-        "with a population of around 8.8 million. It stands on the River Thames in\n" +
-        "south-east England at the head of a 50-mile (80 km) estuary down to the North\n" +
-        "Sea and has been a major settlement for nearly two millennia.");
-        queryInfo.put("the strongest",
-        "Who is Aaron Thomas to you?,\n" +
-        "He's the strongest.\n" +
-        "Nah. I'd win.\n" +
-        "Stand proud. You are Strong.");
-        queryInfo.put("aaron thomas",
-        "He's the strongest.\n" +
-        "the honoured one.\n" +
-        "the strongest.");
-        queryInfo.put("Chelsea",
-        "the objectively best football club in the world.");
-        queryInfo.put("jeet",
-        "Jeet is a god.\n" +
-        "He is the strongest.\n" +
-        "He is the best.\n" +
-        "He is the most handsome.\n" +
-        "He is the most intelligent.\n" +
-        "He is the most humble.\n" +
-        "He is the most kind.\n" +
-        "He is the most generous.\n" +
-        "He is the most caring.\n" +
-        "He is the most loving.\n" +
-        "He is the most loyal.\n" +
-        "He is the most hardworking.\n" +
-        "He is the most dedicated.\n" +
-        "He is the most talented.\n" +
-        "He is the most athletic.\n" +
-        "He is the most creative.\n" +
-        "He is the most artistic.\n" +
-        "He is the most musical.\n");    
+        try {
+            // Read content from the JSON file
+            String jsonString = new String(Files.readAllBytes(Paths.get("queryInfo.json")));
+            queryInfo = new JSONObject(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public QueryProcessor () {
+    public QueryProcessor() {
         populateInfo();
     }
 
@@ -68,7 +28,7 @@ public class QueryProcessor {
 
         for (String searchableQuery : queryInfo.keySet()) {
             if (query.toLowerCase().contains(searchableQuery)) {
-                results.append(queryInfo.get(searchableQuery));
+                results.append(queryInfo.getString(searchableQuery));
                 results.append(System.lineSeparator());
             }
         }
@@ -81,14 +41,14 @@ public class QueryProcessor {
 
         for (String searchableQuery : queryInfo.keySet()) {
             if (query.toLowerCase().contains(searchableQuery)) {
-                String result = queryInfo.get(searchableQuery);
+                String result = queryInfo.getString(searchableQuery);
                 markdownResults.append(generateMarkdownSection(searchableQuery, result));
             }
         }
 
         return markdownResults.toString();
     }
-    
+
     private String generateMarkdownSection(String title, String content) {
         StringBuilder section = new StringBuilder();
         // Title as a header
