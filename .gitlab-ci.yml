@@ -13,14 +13,14 @@ build-job:
   script:
     - echo "Building the app"
     - mvn compile
-  image: maven:3-jdk-11
+  image: maven:latest
 
 test-job:
   stage: test
   script:
     - echo "Testing the app"
     - mvn test
-  image: maven:3-jdk-11
+  image: maven:latest
 
 deploy-prod:
   stage: deploy
@@ -32,11 +32,11 @@ deploy-prod:
     # - docker build -t $DOCKER_IMAGE_TAG .
     # - docker push $DOCKER_IMAGE_TAG
     # - heroku container:release web --app group52-simplewebapp
-    - mvn package
-    - docker build -t registry.heroku.com/group52-simplewebapp/web .
-    - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
-    - docker push registry.heroku.com/group52-simplewebapp/web
-    - heroku container:release web --app group52-simplewebapp
-  only:
-    - master
-  image: docker:latest
+    # - mvn package
+    # - docker build -t registry.heroku.com/group52-simplewebapp/web .
+    # - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
+    # - docker push registry.heroku.com/group52-simplewebapp/web
+    # - heroku container:release web --app group52-simplewebapp
+    - gem install dpl
+    - dpl --provider=heroku --app=group52-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
+  image: ruby:latest
