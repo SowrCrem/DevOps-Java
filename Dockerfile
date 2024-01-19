@@ -1,10 +1,9 @@
 # Use a base image with the required JDK version
-FROM maven:sapmachine AS build
+FROM maven:3-jdk-11 AS build
 
 # Install Maven and Pandoc 
 RUN apt-get update && \
-    apt-get install -y pandoc texlive-latex-extra docker.io \
-    && rm -rf /var/lib/apt/lists/*
+    apt-get install -y pandoc texlive-latex-extra
 
 # Set the working directory in the container
 WORKDIR /app
