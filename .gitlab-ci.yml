@@ -1,3 +1,10 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+  - deploy
+
 build-job:
   stage: build
   script:
@@ -10,6 +17,7 @@ test-job:
 
 deploy-prod:
   stage: deploy
+  image: docker:latest  # Use the Docker image for deploying
   script:
     - mvn package
     - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
@@ -21,6 +29,7 @@ deploy-prod:
   artifacts:
     paths:
       - cicd_logfile.log
+
 
 # deploy-prod:
 #   stage: deploy
