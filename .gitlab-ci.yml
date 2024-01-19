@@ -28,7 +28,6 @@ deploy-prod:
     - heroku container:release web --app group52-simplewebapp
   only:
     - master
-  image: docker:latest  # Use the Docker image for deploying
 
 image: maven:3.8.4-openjdk-11
 
