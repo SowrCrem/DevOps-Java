@@ -3,6 +3,9 @@ stages:
   - test
   - deploy
 
+variables:
+  DOCKER_IMAGE_TAG: registry.heroku.com/group52-simplewebapp/web
+
 build-job:
   stage: build
   script:
@@ -20,16 +23,14 @@ deploy-prod:
   script:
     - mvn package
     - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
-    - docker build -t registry.heroku.com/group52-simplewebapp/web .
-    - docker push registry.heroku.com/group52-simplewebapp/web
+    - docker build -t $DOCKER_IMAGE_TAG .
+    - docker push $DOCKER_IMAGE_TAG
     - heroku container:release web --app group52-simplewebapp
   only:
     - master
-  artifacts:
-    paths:
-      - cicd_logfile.log
   image: docker:latest  # Use the Docker image for deploying
 
+image: maven:3.8.4-openjdk-11
 
 # deploy-prod:
 #   stage: deploy
