@@ -1,9 +1,8 @@
 package ic.doc;
 
 import org.json.JSONObject;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class QueryProcessor {
 
@@ -12,8 +11,15 @@ public class QueryProcessor {
     public void populateInfo() {
         try {
             // Read content from the JSON file
-            String jsonString = new String(Files.readAllBytes(Paths.get("queryInfo.json")));
-            queryInfo = new JSONObject(jsonString);
+            BufferedReader jsonFile = new BufferedReader(new FileReader("src/main/java/ic/doc/queryInfo.json"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = jsonFile.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+
+            queryInfo = new JSONObject(stringBuilder.toString());
+            jsonFile.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,6 +33,7 @@ public class QueryProcessor {
         StringBuilder results = new StringBuilder();
 
         for (String searchableQuery : queryInfo.keySet()) {
+            System.out.println(searchableQuery);
             if (query.toLowerCase().contains(searchableQuery)) {
                 results.append(queryInfo.getString(searchableQuery));
                 results.append(System.lineSeparator());
