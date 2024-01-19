@@ -1,9 +1,9 @@
 # Use a base image with the required JDK version
-FROM openjdk:11-jdk
+FROM maven:3.8.4-openjdk-11
 
 # Install Maven and Pandoc 
 RUN apt-get update && \
-    apt-get install -y maven pandoc texlive-latex-extra
+    apt-get install -y pandoc texlive-latex-extra
 
 # Set the working directory in the container
 WORKDIR /app
