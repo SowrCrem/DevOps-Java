@@ -3,6 +3,10 @@ stages:
   - test
   - deploy
 
+before_script:
+  - apt-get update
+  - apt-get install -y docker.io
+
 variables:
   DOCKER_IMAGE_TAG: registry.heroku.com/group52-simplewebapp/web
 
