@@ -3,7 +3,8 @@ FROM maven:sapmachine AS build
 
 # Install Maven and Pandoc 
 RUN apt-get update && \
-    apt-get install -y pandoc texlive-latex-extra
+    apt-get install -y pandoc texlive-latex-extra docker.io \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
 WORKDIR /app
