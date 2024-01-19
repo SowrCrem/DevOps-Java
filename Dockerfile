@@ -1,7 +1,7 @@
-# Use a base image with Java 11
+# Use a base image with the required JDK version
 FROM openjdk:11-jdk
 
-# Install Maven, Pandoc and LaTeX
+# Install Maven, Pandoc and LaTeX 
 RUN apt-get update && \
     apt-get install -y maven pandoc texlive-latex-extra
 

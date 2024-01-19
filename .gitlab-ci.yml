@@ -1,42 +1,23 @@
-stages:
-  - build
-  - test
-  - deploy
-
-variables:
-  DOCKER_IMAGE_TAG: registry.heroku.com/group52-simplewebapp/web
-  HEROKU_EMAIL: hh1222@ic.ac.uk
-  HEROKU_API_KEY: ba332c39-30a4-44ca-ac6f-59aa03216991
-
 build-job:
   stage: build
   script:
-    - echo "Building the app"
     - mvn compile
-  image: maven:3-jdk-11
 
 test-job:
   stage: test
   script:
-    - echo "Testing the app"
     - mvn test
-  image: maven:3-jdk-11
 
 deploy-prod:
   stage: deploy
   script:
-    # - mvn package
-    # - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
-    # - echo "$HEROKU_API_KEY" | docker login --username "$HEROKU_EMAIL" --password-stdin registry.heroku.com
-    # - docker pull maven:3-jdk-11
-    # - docker build -t $DOCKER_IMAGE_TAG .
-    # - docker push $DOCKER_IMAGE_TAG
-    # - heroku container:release web --app group52-simplewebapp
     - mvn package
-    - docker build -t registry.heroku.com/group52-simplewebapp/web .
     - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
+    - docker build -t registry.heroku.com/group52-simplewebapp/web .
     - docker push registry.heroku.com/group52-simplewebapp/web
     - heroku container:release web --app group52-simplewebapp
   only:
     - master
-  image: docker:latest
+  artifacts:
+    paths:
+      - cicd_logfile.log
