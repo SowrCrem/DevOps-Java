@@ -23,29 +23,10 @@ deploy-prod:
   script:
     - mvn package
     - docker login --username=hh1222@ic.ac.uk --password=ba332c39-30a4-44ca-ac6f-59aa03216991 registry.heroku.com
-    - docker build -t $DOCKER_IMAGE_TAG .
+    - docker build -t my-docker-image $DOCKER_IMAGE_TAG .
     - docker push $DOCKER_IMAGE_TAG
     - heroku container:release web --app group52-simplewebapp
   only:
     - master
+  image: my-docker-image
 
-image: maven:3.8.4-openjdk-11
-
-# deploy-prod:
-#   stage: deploy
-#   script:
-#     # TODO: Change to a Secret Variable
-#     # TODO: Split into two deploy jobs, one for staging (VM) and one for production (Heroku)
-#     - mvn package
-#     - export PORT=5000
-#     - fuser -k 5000/tcp || true
-#     - nohup sh target/bin/simplewebapp > cicd_logfile.log 2>&1 &
-#     - docker build -t my_image .
-#     - docker run -e PORT=8080 -p 5000:8080 my_image
-#     - dpl --provider=heroku --app=group52-simplewebapp --api-key=ba332c39-30a4-44ca-ac6f-59aa03216991
-#     - echo "deploying"
-#   artifacts:
-#     paths:
-#       - cicd_logfile.log
-  
-  
