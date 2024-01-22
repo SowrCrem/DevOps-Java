@@ -18,7 +18,7 @@ public class IndexPage implements Page {
         // Content
         writer.println(
                 "<h1>Welcome!!</h1>" +
-                        "<p>Enter your query in the box below: " +
+                        "<p>Hello Enter your query in the box below: " +
                         "<form>" +
                         "<input type=\"text\" name=\"q\" />" +
                         "<p>Select Format:</p>" +
